@@ -24,10 +24,10 @@ RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources
 
 #download python2
 # install python
-RUN apt-get update && apt-get install -yq --no-install-recommends build-essential python-dev libsm6
+RUN apt-get update && apt-get install -yq --no-install-recommends build-essential python-dev libsm6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-    
+
 # Spark and Mesos config
 ENV SPARK_HOME /usr/local/spark
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.9-src.zip \
