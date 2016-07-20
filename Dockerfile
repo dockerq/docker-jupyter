@@ -12,15 +12,15 @@ RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini &
     chmod +x /usr/local/bin/tini
 
 # Configure environment
-ENV CONDA_DIR=/opt/conda \
-    SHELL=/bin/bash \
-    NB_USER=jovyan \
-    NB_UID=1000
+ENV CONDA_DIR='/opt/conda' \
+    SHELL='/bin/bash' \
+    NB_USER='jovyan' \
+    NB_UID='1000'
 ENV PATH $CONDA_DIR/bin:$PATH \
     HOME /home/$NB_USER
 
 # Create jovyan user with UID=1000 and in the 'users' group
-RUN useradd -m -s /bin/bash -N -u 1000 jovyan && \
+RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER $CONDA_DIR
 
