@@ -4,7 +4,7 @@ FROM ubuntu:14.04
 MAINTAINER adolphlwq kenan3015@gmail.com
 
 USER root
-RUN apt-get update && apt-get install -yq --no-install-recommends bzip2 ca-certificates sudo locales
+RUN apt-get update && apt-get install -yq --no-install-recommends bzip2 ca-certificates sudo locales wget
 # Install Tini
 RUN wget --quiet https://github.com/krallin/tini/releases/download/v0.9.0/tini && \
     echo "faafbfb5b079303691a939a747d7f60591f2143164093727e870b289a44d9872 *tini" | sha256sum -c - && \
