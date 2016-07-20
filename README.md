@@ -61,3 +61,56 @@ c.DockerSpawner.extra_create_kwargs.update({
 	'command': '/usr/local/bin/start-singleuser.sh'
 })
 ```
+
+
+## Json for Marathon
+```
+{
+  "id": "/jupyter-notebook-1.6.0",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 3072,
+  "disk": 4096,
+  "instances": 1,
+  "constraints": [
+    [
+      "hostname",
+      "LIKE",
+      "10.140.0.15"
+    ]
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "adolphlwq/docker-jupyter:pyspark-notebook-1.6.0",
+      "network": "HOST",
+      "privileged": true,
+      "parameters": [
+        {
+          "key": "user",
+          "value": "root"
+        },
+        {
+          "key": "pid",
+          "value": "host"
+        }
+      ],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "TINI_SUBREAPER": "true",
+    "PASSWORD": "password",
+    "USE_HTTPS": "yes",
+    "GRANT_SUDO": "yes"
+  },
+  "portDefinitions": [
+    {
+      "port": 10005,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ]
+}
+```
