@@ -18,13 +18,11 @@ RUN curl -fL http://archive.apache.org/dist/spark/spark-1.6.0/spark-1.6.0-bin-ha
 RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources.list.d/mesosphere.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
     apt-get -y update && \
-    apt-get --no-install-recommends -y --force-yes install mesos=0.28.1-2.0.20.ubuntu1404 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get --no-install-recommends -y --force-yes install mesos=0.28.1-2.0.20.ubuntu1404
 
 #download python2
 # install python
-RUN apt-get update && apt-get install -yq --no-install-recommends build-essential python-dev libsm6 && \
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential python-dev libsm6 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
