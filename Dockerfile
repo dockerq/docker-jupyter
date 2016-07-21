@@ -1,7 +1,7 @@
 # changed by adolphlwq, refer to https://github.com/jupyter/docker-stacks
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM adolphlwq/docker-jupyter:base-notebook
+FROM adolphlwq/docker-jupyter:base-notebook-23
 MAINTAINER adolphlwq kenan3015@gmail.com
 
 USER root
@@ -18,11 +18,7 @@ RUN curl -fL http://archive.apache.org/dist/spark/spark-1.6.0/spark-1.6.0-bin-ha
 RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources.list.d/mesosphere.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
     apt-get -y update && \
-    apt-get --no-install-recommends -y --force-yes install mesos=0.28.1-2.0.20.ubuntu1404
-
-#download python2
-# install python
-RUN apt-get update && apt-get install -y --no-install-recommends build-essential python-dev libsm6 && \
+    apt-get --no-install-recommends -y --force-yes install mesos=0.28.1-2.0.20.ubuntu1404 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
