@@ -22,8 +22,6 @@ RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# install dependencies for run dap app
-RUN
 # Spark and Mesos config
 ENV SPARK_HOME /usr/local/spark-1.6.0-bin-hadoop2.6
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.9-src.zip \
