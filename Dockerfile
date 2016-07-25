@@ -25,6 +25,6 @@ RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources
 # Spark and Mesos config
 ENV SPARK_HOME /usr/local/spark-1.6.0-bin-hadoop2.6
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.9-src.zip \
-    MESOS_NATIVE_LIBRARY=/usr/local/lib/libmesos.so
+    MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 #ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
 USER $NB_USER

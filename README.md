@@ -1,84 +1,34 @@
-refer this [url](http://shields.io/) to set image
-# Base Jupyter Notebook Stack
->This image refers to [Jupyter Notebook base-notebook](https://github.com/jupyter/docker-stacks/tree/master/base-notebook)
-I have change the base image from `Jessie` to `ubuntu:14.04`
-Small base image for defining your own stack
+# Jupyter pyspark notebook
+[![Docker Pulls](https://img.shields.io/docker/pulls/adolphlwq/docker-jupyter.svg?maxAge=2592000?style=flat-square)]()
 
-## What it Gives You
+## Introduction
+This image support python 2 and python Ipython which run under Jupyter.
+I have download Java 7 and Apache Spark 1.6.0. So you can run pyspark in Ipython
 
-* Minimally-functional Jupyter Notebook 4.2.x (e.g., no pandoc for document conversion)
-* Miniconda Python 3.x
-* No preinstalled scientific computing packages
-* Unprivileged user `jovyan` (uid=1000, configurable, see options) in group `users` (gid=100) with ownership over `/home/jovyan` and `/opt/conda`
-* [tini](https://github.com/krallin/tini) as the container entrypoint and [start-notebook.sh](./start-notebook.sh) as the default command
-* A [start-singleuser.sh](../minimal-notebook/start-singleuser.sh) script for use as an alternate command that runs a single-user instance of the Notebook server, as required by [JupyterHub](#JupyterHub)
-* Options for HTTPS, password auth, and passwordless `sudo`
+## Note
+This docker image is for run Jupyter Notebook cross Mesos Cluster. It refers to [official Jupyter Dockerfile](https://github.com/jupyter/docker-stacks/tree/master/base-notebook)
+Official image use `Jessie` as base image.By 2016.7.26, it only support Mesos 0.22. So I rebuild the image which
+uses ubuntu:14.04 as base image.My image support the latest Mesos version.
 
-## Basic Use
-
-The following command starts a container with the Notebook server listening for HTTP connections on port 8888 without authentication configured.
-
+## Usage
+1. normal usage:
 ```
-docker run -d -p 8888:8888 jupyter/base-notebook
+##download the image
+docker pull adolphlwq/docker-jupyter:pyspark-notebook
+##run
+docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook OR
+docker run --net host -d adolphlwq/docker-jupyter:pyspark-notebook
 ```
-
-## Notebook Options
-
-You can pass [Jupyter command line options](http://jupyter.readthedocs.org/en/latest/config.html#command-line-arguments) through the [`start-notebook.sh` command](https://github.com/jupyter/docker-stacks/blob/master/minimal-notebook/start-notebook.sh#L15) when launching the container. For example, to set the base URL of the notebook server you might do the following:
-
-```
-docker run -d -p 8888:8888 jupyter/minimal-notebook start-notebook.sh --NotebookApp.base_url=/some/path
-```
-
-You can sidestep the `start-notebook.sh` script entirely by specifying a command other than `start-notebook.sh`. If you do, the `NB_UID` and `GRANT_SUDO` features documented below will not work. See the Docker Options section for details.
-
-## Docker Options
-
-You may customize the execution of the Docker container and the Notebook server it contains with the following optional arguments.
-
-* `-e PASSWORD="YOURPASS"` - Configures Jupyter Notebook to require the given password. Should be conbined with `USE_HTTPS` on untrusted networks.
-* `-e USE_HTTPS=yes` - Configures Jupyter Notebook to accept encrypted HTTPS connections. If a `pem` file containing a SSL certificate and key is not provided (see below), the container will generate a self-signed certificate for you.
-* `-e NB_UID=1000` - Specify the uid of the `jovyan` user. Useful to mount host volumes with specific file ownership. For this option to take effect, you must run the container with `--user root`. (The `start-notebook.sh` script will `su jovyan` after adjusting the user id.)
-* `-e GRANT_SUDO=yes` - Gives the `jovyan` user passwordless `sudo` capability. Useful for installing OS packages. For this option to take effect, you must run the container with `--user root`. (The `start-notebook.sh` script will `su jovyan` after adding `jovyan` to sudoers.) **You should only enable `sudo` if you trust the user or if the container is running on an isolated host.**
-* `-v /some/host/folder/for/work:/home/jovyan/work` - Host mounts the default working directory on the host to preserve work even when the container is destroyed and recreated (e.g., during an upgrade).
-* `-v /some/host/folder/for/server.pem:/home/jovyan/.local/share/jupyter/notebook.pem` - Mounts a SSL certificate plus key for `USE_HTTPS`. Useful if you have a real certificate for the domain under which you are running the Notebook server.
-
-## Conda Environment
-
-The default Python 3.x [Conda environment](http://conda.pydata.org/docs/using/envs.html) resides in `/opt/conda`. The commands `ipython`, `python`, `pip`, `easy_install`, and `conda` (among others) are available in this environment.
-
-
-## JupyterHub
-
-[JupyterHub](https://jupyterhub.readthedocs.org) requires a single-user instance of the Jupyter Notebook server per user.   To use this stack with JupyterHub and [DockerSpawner](https://github.com/jupyter/dockerspawner), you must specify the container image name and override the default container run command in your `jupyterhub_config.py`:
-
-```python
-# Spawn user containers from this image
-c.DockerSpawner.container_image = 'jupyter/minimal-notebook'
-
-# Have the Spawner override the Docker run command
-c.DockerSpawner.extra_create_kwargs.update({
-	'command': '/usr/local/bin/start-singleuser.sh'
-})
-```
-
-
-## Json for Marathon
+2. cross Mesos
+using Marathon by a json:
 ```
 {
-  "id": "/jupyter-notebook-1.6.0",
+  "id": "/jupyter-pyspark-notebook-test",
   "cmd": null,
   "cpus": 1,
-  "mem": 3072,
+  "mem": 4096,
   "disk": 4096,
   "instances": 1,
-  "constraints": [
-    [
-      "hostname",
-      "LIKE",
-      "10.140.0.15"
-    ]
-  ],
   "container": {
     "type": "DOCKER",
     "volumes": [],
@@ -88,12 +38,12 @@ c.DockerSpawner.extra_create_kwargs.update({
       "privileged": true,
       "parameters": [
         {
-          "key": "user",
-          "value": "root"
-        },
-        {
           "key": "pid",
           "value": "host"
+        },
+        {
+          "key": "user",
+          "value": "root"
         }
       ],
       "forcePullImage": true
@@ -114,3 +64,4 @@ c.DockerSpawner.extra_create_kwargs.update({
   ]
 }
 ```
+For more information to use the image, please refer to [official Jupyter Dockerfile](https://github.com/jupyter/docker-stacks/tree/master/base-notebook)
