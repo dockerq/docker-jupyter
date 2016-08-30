@@ -21,10 +21,11 @@ RUN echo "deb http://repos.mesosphere.io/ubuntu/ trusty main" > /etc/apt/sources
     apt-get --no-install-recommends -y --force-yes install mesos=0.28.1-2.0.20.ubuntu1404 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
 # install cassandra-driver
-RUN pip3 install cassandra-driver && \
-    pip2 install cassandra-driver
-    
+RUN pip3 install cassandra-driver matplotlib pandas numpy scipy scikit-learn && \
+    pip2 install cassandra-driver matplotlib pandas numpy scipy scikit-learn
+
 # Spark and Mesos config
 ENV SPARK_HOME /usr/local/spark-1.6.0-bin-hadoop2.6
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.9-src.zip \
