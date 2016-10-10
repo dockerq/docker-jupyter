@@ -19,10 +19,10 @@ uses ubuntu:14.04 as base image.My image support the latest Mesos version.
 1. normal usage:
 ```
 ##download the image
-docker pull adolphlwq/docker-jupyter:pyspark-notebook
+docker pull adolphlwq/docker-jupyter:pyspark-notebook-1.6.0
 ##run
-docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook OR
-docker run --net host -d adolphlwq/docker-jupyter:pyspark-notebook
+docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook-1.6.0 OR
+docker run --net host -d adolphlwq/docker-jupyter:pyspark-notebook-1.6.0
 ```
 2. cross Mesos
 using Marathon by a json:
