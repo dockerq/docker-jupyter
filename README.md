@@ -10,6 +10,10 @@ uses ubuntu:14.04 as base image. My image support Mesos(0.28.1) version default.
 This image support python 2 and python Ipython which run under Jupyter.
 I have download Java 7 and Apache Spark 1.6.0. So you can run pyspark in Ipython
 
+## Changelog
+- tag `base-notebook-v0.1`:this is a base image.
+- tag `jupyter-spark1.6.0`:this version with spark 1.6.0 built in
+
 ## Note
 This docker image is for run Jupyter Notebook cross Mesos Cluster. It refers to [official Jupyter Dockerfile](https://github.com/jupyter/docker-stacks/tree/master/base-notebook)
 Official image use `Jessie` as base image.By 2016.7.26, it only support Mesos 0.22. So I rebuild the image which
