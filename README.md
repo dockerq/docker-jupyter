@@ -11,8 +11,9 @@ This image support python 2 and python Ipython which run under Jupyter.
 I have download Java 7 and Apache Spark 1.6.0. So you can run pyspark in Ipython
 
 ## Changelog
-- tag `base-notebook-v0.1`:this is a base image.
-- tag `jupyter-spark1.6.0`:this version with spark 1.6.0 built in
+- image `adolphlwq/docker-jupyter:pyspark-notebook-1.6.0`:this version with spark 1.6.0 built in
+- image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.1`:this version with spark 2.0.1 built in
+- on master branch and image `adolphlwq/docker-jupyter` is spark 2.0.1 and mesos 0.28.2
 
 ## Note
 This docker image is for run Jupyter Notebook cross Mesos Cluster. It refers to [official Jupyter Dockerfile](https://github.com/jupyter/docker-stacks/tree/master/base-notebook)
