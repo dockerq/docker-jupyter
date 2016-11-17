@@ -8,11 +8,11 @@ USER root
 # Spark dependencies
 ENV APACHE_SPARK_VERSION=2.0.1 \
     MESOS_VERSION=0.28.1 \
-    SPARK_URL=http://archive.apache.org/dist/spark/spark-2.0.1/spark-2.0.1-bin-hadoop2.7.tgz
+    SPARK_URL=http://archive.apache.org/dist/spark/spark-2.0.2/spark-2.0.2-bin-hadoop2.7.tgz
 RUN apt-get -y update && \
     apt-get install -y --no-install-recommends openjdk-7-jre-headless curl
 
-# download Spark 2.0.1
+# download Spark 2.0.2
 RUN curl -fL $SPARK_URL | tar xzf - -C /usr/local
 
 #download Mesos 0.28.1
@@ -28,7 +28,7 @@ RUN pip3 install cassandra-driver matplotlib pandas numpy scipy scikit-learn && 
     pip2 install cassandra-driver matplotlib pandas numpy scipy scikit-learn
 
 # Spark and Mesos config
-ENV SPARK_HOME /usr/local/spark-2.0.1-bin-hadoop2.7
+ENV SPARK_HOME /usr/local/spark-2.0.2-bin-hadoop2.7
 ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.3-src.zip \
     MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 #ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
