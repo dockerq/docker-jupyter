@@ -8,7 +8,7 @@ uses ubuntu:14.04 as base image. My image support Mesos(0.28.1) version default.
 
 ## Introduction
 This image support python 2 and python Ipython which run under Jupyter.
-I have download Java 7 and Apache Spark 1.6.0. So you can run pyspark in Ipython
+I have download Java 7 and Apache Spark 2.0.2. So you can run pyspark in Ipython
 
 ## Changelog
 - image `adolphlwq/docker-jupyter:pyspark-notebook-1.6.0`:this version with spark 1.6.0 built in
@@ -20,14 +20,20 @@ This docker image is for run Jupyter Notebook cross Mesos Cluster. It refers to 
 Official image use `Jessie` as base image.By 2016.7.26, it only support Mesos 0.22. So I rebuild the image which
 uses ubuntu:14.04 as base image.My image support the latest Mesos version.
 
+## Changelog
+- image `adolphlwq/docker-jupyter:pyspark-notebook-1.6.0`:this version with spark 1.6.0 built in
+- image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.1`:this version with spark 2.0.1 built in
+- image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.2`:this version with spark 2.0.2 built in
+- on master branch and image `adolphlwq/docker-jupyter` is spark 2.0.1 and mesos 0.28.1
+
 ## Usage
 1. normal usage:
 ```
 ##download the image
-docker pull adolphlwq/docker-jupyter:pyspark-notebook-1.6.0
+docker pull adolphlwq/docker-jupyter:pyspark-notebook-2.0.2
 ##run
-docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook-1.6.0 OR
-docker run --net host -d adolphlwq/docker-jupyter:pyspark-notebook-1.6.0
+docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook-2.0.2 OR
+docker run --net host -d adolphlwq/docker-jupyter:pyspark-notebook-2.0.2
 ```
 2. cross Mesos
 using Marathon by a json:
@@ -43,7 +49,7 @@ using Marathon by a json:
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "adolphlwq/docker-jupyter:pyspark-notebook-1.6.0",
+      "image": "adolphlwq/docker-jupyter:pyspark-notebook-2.0.2",
       "network": "HOST",
       "privileged": true,
       "parameters": [
@@ -83,13 +89,13 @@ The Docker container executes a [`start-notebook.sh` script](./start-notebook.sh
 You can pass [Jupyter command line options](http://jupyter.readthedocs.org/en/latest/config.html#command-line-arguments) through the `start-notebook.sh` script when launching the container. For example, to secure the Notebook server with a password hashed using `IPython.lib.passwd()`, run the following:
 
 ```
-docker run -d -p 8888:8888 jupyter/base-notebook start-notebook.sh --NotebookApp.password='sha1:74ba40f8a388:c913541b7ee99d15d5ed31d4226bf7838f83a50e'
+docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook-2.0.2 start-notebook.sh --NotebookApp.password='sha1:74ba40f8a388:c913541b7ee99d15d5ed31d4226bf7838f83a50e'
 ```
 
 For example, to set the base URL of the notebook server, run the following:
 
 ```
-docker run -d -p 8888:8888 jupyter/base-notebook start-notebook.sh --NotebookApp.base_url=/some/path
+docker run -d -p 8888:8888 adolphlwq/docker-jupyter:pyspark-notebook-2.0.2 start-notebook.sh --NotebookApp.base_url=/some/path
 ```
 
 You can sidestep the `start-notebook.sh` script and run your own commands in the container. See the *Alternative Commands* section later in this document for more information.
