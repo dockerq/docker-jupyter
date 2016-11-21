@@ -6,7 +6,7 @@ MAINTAINER adolphlwq kenan3015@gmail.com
 
 USER root
 # Spark dependencies
-ENV APACHE_SPARK_VERSION=2.0.1 \
+ENV APACHE_SPARK_VERSION=2.0.2 \
     MESOS_VERSION=0.28.1 \
     SPARK_URL=http://archive.apache.org/dist/spark/spark-2.0.2/spark-2.0.2-bin-hadoop2.7.tgz
 RUN apt-get -y update && \
