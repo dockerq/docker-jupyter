@@ -17,6 +17,7 @@ uses ubuntu:14.04 as base image.My image support the latest Mesos version.
 
 ## Changelog
 - image `adolphlwq/docker-jupyter:pyspark-notebook-1.6.0`:this version with spark 1.6.0 built in
+- image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.0`:this version with spark 2.0.0 built in
 - image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.1`:this version with spark 2.0.1 built in
 - image `adolphlwq/docker-jupyter:pyspark-notebook-2.0.2`:this version with spark 2.0.2 built in
 - on master branch and image `adolphlwq/docker-jupyter` is spark 2.0.2 and mesos 0.28.1
